@@ -1,4 +1,4 @@
-import { InventoryType } from "../enum/type";
+import { InventoryType } from "src/lib/types/type";
 
 export default class LibraryInventory {
     name: string; // like book inventory

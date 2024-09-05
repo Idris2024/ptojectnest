@@ -3,6 +3,6 @@ export default interface User {
     firstName: string,
     lastname: string,
     email: string,
-    password?: string,
+    password: string,
     passwordHash: string;
 }

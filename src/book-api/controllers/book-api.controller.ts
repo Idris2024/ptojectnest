@@ -1,20 +1,26 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import {BookApiService} from '../service/book-api.service'
-import { book } from 'src/lib/db';
-import Book from 'src/entities/book.entity';
-@Controller('book-api') 
- export class BookApiController { 
-constructor(private readonly bookApiService: BookApiService) {}
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { BookApiService } from '../service/book-api.service';
+import { IsAuthenticated } from 'src/shared/IsAuthenticated';
+import { GetAuthPayload } from 'src/shared/getAuthTokenPayload';
+import { AuthTokenPayload } from 'src/lib/types/type';
+@Controller('book-api')
 
-    @Get('/Booklist')
-    getBook(){
-        return this.bookApiService.getBook();
-      }
-      @Get('view/:id/:catId')
-        async BooKId(
-          @Param('id'||'categoryId') bookIdData: number) {
-             const message = await this.bookApiService.getBookById(bookIdData)
-          return message;
+    export class BookApiController {
 
-  }
-}
+    constructor(private readonly bookapiservice: BookApiService ) {
+        //
+    } 
+        @Get('/Booklist')
+        getBook(){
+            return this.bookapiservice.getBook();
+        }
+
+        @Get('borrow')
+        @UseGuards(IsAuthenticated)
+        borrowBook(@GetAuthPayload() payload: AuthTokenPayload) {
+            // console.log('this is an protected route')
+            return `This is the auth payload: ${JSON.stringify(payload)}`
+        }
+    }
+
+

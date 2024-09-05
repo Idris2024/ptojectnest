@@ -1,14 +1,19 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BookApiModule } from './book-api/module/book-api.module';
 import { AuthModule } from './auth/modules/auth.module';
-import { BorrowedBookService } from './borrowed-book/borrowedBookService/borrowed-book.service';
-import { BorrowedBookController } from './borrowed-book/borrowedBookcontroller/borrowed-book.controller';
-import { BorrowedBookModule } from './borrowed-book/borrowed-book.module';
+import { SharedModule } from './shared/shared.module';
+import { ExtractTokenMiddleWare } from './shared/extractTokenMiddleware';
+
 @Module({
-  imports: [BookApiModule, AuthModule, BorrowedBookModule],
-  controllers: [AppController, BorrowedBookController],
-  providers: [AppService, BorrowedBookService],
+  imports: [BookApiModule, AuthModule, SharedModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ExtractTokenMiddleWare).exclude('/auth/*').forRoutes('*');
+  }
+
+}

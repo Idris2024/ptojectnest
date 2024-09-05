@@ -1,4 +1,4 @@
-import { AvailabilityStatus } from "../enum/availability.enum";
+import { AvailabilityStatus } from "../lib/enum/availability.enum";
 
 export default class BookInventoryBooks {
     bookId: number;

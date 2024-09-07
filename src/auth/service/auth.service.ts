@@ -2,7 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash, compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken';
 import User from 'src/entities/user.entity';
-import {users} from '../lib/db'
+import { users } from 'src/lib/db';
+// import {users} from '../lib/db'
 // import { AuthController } from '../controllers/auth.controller';
 // import {user} from
 

@@ -23,9 +23,5 @@ import { BookApiService } from '../service/book-api.service';
        
     
     
-    // @Get(':id')
-    // getBookById(@Param() params:any){
-    //         console.log(`This ${params.id} is th id`);  
 
-    // }
 

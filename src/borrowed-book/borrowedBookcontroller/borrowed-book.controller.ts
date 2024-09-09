@@ -18,27 +18,21 @@ export class BorrowedBookController {
       @Body() borrowedBooksData: BorrowedBook, // The data for borrowing the book
       @GetAuthPayload() payload: AuthTokenPayload, // Fetch the auth payload of the logged-in user
     ) {
-      // You can log or return the auth payload for testing or debugging purposes
-      console.log('User payload:', payload);
   
       // Proceed to borrow the book
       return await this.borrowedBookService.borrowBook(borrowedBooksData);
     }
-
-
-    @Get('/BorrowBooklist')
-    getBorrowedBooks(){
+      // constructor(private readonly borrowedBookService: BorrowedBook) {}
+    @UseGuards(IsAuthenticated)
+    @Get('BorrowBooklist')
+    async borrowedBookList (
+      @GetAuthPayload() payload: AuthTokenPayload, )
+    {
     return this.borrowedBookService.getBorrowedBooks();
     }
   }
+  
 
 
-
-    // An example route to show the user's auth payload (protected route)
-    // @UseGuards(IsAuthenticated)
-    // @Get('/protected-route')
-    // async showAuthPayload(@GetAuthPayload() payload: AuthTokenPayload) {
-    //   return `This is the auth payload: ${JSON.stringify(payload)}`;
-    // }
 
  

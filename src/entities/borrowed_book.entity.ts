@@ -6,7 +6,7 @@ export default class BorrowedBook {
     categoryId: number;
 
     constructor(bookId:number, userid:number, borrowedDate:Date, returnedDate:Date, dueDate:Date, categoryId:number) {
-        this.bookId = bookId
+        this.bookId = bookId;
         this.userId = userid;
         this.borrowedDate = borrowedDate;
         this.returnedDate = returnedDate;

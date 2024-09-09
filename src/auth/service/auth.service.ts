@@ -10,19 +10,20 @@ import { users } from 'src/lib/db';
 @Injectable()
 export class AuthService {
     async signup(signupUserData: User) {
+    
         const existingUser = users.find((u) => u.email === signupUserData.email )
         if (existingUser) {
             throw new HttpException('User Exists!', HttpStatus.BAD_REQUEST);
         }
 
         const saltRound = 10;
-        const passwordHash = await hash(signupUserData.password as string, saltRound);
+        const passwordHashs = await hash(signupUserData.password as string, saltRound);
 
         // delete signupUserData.password;
-        signupUserData.passwordHash = passwordHash;
+        signupUserData.passwordHash = passwordHashs;
         signupUserData.password = undefined;
 
-        users.push(signupUserData, existingUser);
+        users.push(signupUserData);
         return 'User was created successfully';
     
     }
